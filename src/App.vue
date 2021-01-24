@@ -1,28 +1,49 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="content">
+      <span class="header_h1">Выберите способ доставки</span>
+      <Tabs :tabs="tabs" :activeTab="activeTab" @setActiveTab="setActiveTab">
+        <template v-slot:tab1> <Delivery/> </template>
+        <template v-slot:tab2> <PickUp :marks="marks"/> </template>
+      </Tabs>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Tabs from './components/tabs.vue';
+import Delivery from './components/delivery.vue';
+import PickUp from './components/pick_up.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Tabs,
+    Delivery,
+    PickUp,
+  },
+  data() {
+    return {
+      activeTab: 0,
+      tabs: ['Доставка', 'Самовывоз'],
+      marks: [
+        [55.801131, 37.508167],
+        [55.757556, 37.651592],
+      ],
+    };
+  },
+  methods: {
+    setActiveTab(tabIndex) {
+      this.activeTab = tabIndex;
+    },
   },
 };
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: 'Monsterrat', sans-serif;;
+  line-height: 26px;
+  font-size: 14px;
 }
 </style>
